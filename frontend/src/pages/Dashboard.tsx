@@ -1,16 +1,16 @@
-
 import { useAuth } from '../context/AuthContext';
 import ScoreWidget from '../components/ScoreWidget';
 import SubscriptionWidget from '../components/SubscriptionWidget';
 import DrawHistoryWidget from '../components/DrawHistoryWidget';
 import { motion } from 'framer-motion';
-
+import type { Variants } from 'framer-motion';
 export default function Dashboard() {
   const { user } = useAuth();
 
-  const containerVariants = {
+  // ✅ FIXED TYPES
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
       transition: {
         staggerChildren: 0.15
@@ -18,13 +18,20 @@ export default function Dashboard() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 100 } }
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100
+      }
+    }
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="space-y-8 pb-20"
       initial="hidden"
       animate="visible"
@@ -39,7 +46,7 @@ export default function Dashboard() {
           Manage your scores, track subscriptions, and check your lottery status with ease.
         </p>
       </motion.header>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:h-[450px]">
         <motion.div variants={itemVariants} className="h-full">
           <ScoreWidget />
